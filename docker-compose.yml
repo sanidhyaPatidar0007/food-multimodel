@@ -1,0 +1,28 @@
+# One command: docker compose up --build   ->  http://localhost:8080
+# Configure the backend by copying backend/.env.example to backend/.env (optional; works without it).
+services:
+  backend:
+    build: ./backend
+    restart: unless-stopped
+    env_file:
+      - path: ./backend/.env
+        required: false
+    environment:
+      APP_ENV: production
+      DATABASE_PATH: /app/data/foodverse.db
+    volumes:
+      - foodverse-data:/app/data
+      # Optional trained weights (see backend/models_weights/README.md):
+      # - ./backend/models_weights:/app/models_weights:ro
+
+  frontend:
+    build: ./frontend
+    restart: unless-stopped
+    depends_on:
+      backend:
+        condition: service_healthy
+    ports:
+      - "${FRONTEND_PORT:-8080}:80"
+
+volumes:
+  foodverse-data:

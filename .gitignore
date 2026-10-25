@@ -1,0 +1,34 @@
+
+# Secrets
+.env
+.env.*
+!.env.example
+*.env.local
+backend/.env.example
+frontend/.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# Local data and databases
+backend/data/
+*.db
+
+# Model weights and datasets
+backend/models_weights/*.onnx
+backend/models_weights/*.pt
+
+# Node
+node_modules/
+frontend/dist/
+
+# OS and editor
+.DS_Store
+.vscode/
+.idea/
+
+*.tsbuildinfo
